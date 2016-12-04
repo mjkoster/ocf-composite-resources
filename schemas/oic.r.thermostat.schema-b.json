@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-v4/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "id": "https://www.openconnectivity.org/ocf-apis/core/schemas/oic.r.thermostat.schema-b.json#",
+  "definitions": {
+    "measurement-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "measurement" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.temperature"] },
+            "if": { "default": ["oic.if.s", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Measured Temperature"} ,
+            "id": { "default": "measurement" },
+            "temperature": { "default": "0.0" },
+            "range": { "default": [0, 40] },
+            "units": { "default": "C" }
+          },
+          "required": ["temperature"]
+        }
+      }
+    },
+    "setpoint-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "setpoint" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.temperature"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Set Temperature"} ,
+            "id": { "default": "setpoint" },
+            "temperature": { "default": "0.0" },
+            "range": { "default": [0, 40] },
+            "units": { "default": "C" }
+          },
+          "required": ["temperature"]
+        }
+      }
+    },
+    "heat-setpoint-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "heat-setpoint" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.temperature"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Heating Temperature"} ,
+            "id": { "default": "heat-setpoint" },
+            "temperature": { "default": "0.0" },
+            "range": { "default": [0, 40] },
+            "units": { "default": "C" }
+          },
+          "required": ["temperature"]
+        }
+      }
+    },
+    "cool-setpoint-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "cool-setpoint" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.temperature"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Cooling Temperature"} ,
+            "id": { "default": "cool-setpoint" },
+            "temperature": { "default": "0.0" },
+            "range": { "default": [0, 40] },
+            "units": { "default": "C" }
+          },
+          "required": ["temperature"]
+        }
+      }
+    },
+    "state-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "state" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.operationalstate"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Thermostat State"} ,
+            "id": { "default": "state" },
+            "machinestates": { "default": ["heating", "idle", "pending cool", "vent economizer", "cooling", "pending heat", "fan only"] },
+            "currentmachinestate": { "default": "idle" }
+          },
+          "required": ["machinestates", "currentmachinestate"]
+        }
+      }
+    },
+    "mode-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "mode" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.mode"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Thermostat Mode"} ,
+            "id": { "default": "mode" },
+            "supportedmodes": { "default": ["emergency heat", "heat", "cool", "off", "auto"] },
+            "modes": { "default": "off" }
+          },
+          "required": ["supportermodes", "modes"]
+        }
+      }
+    },
+    "fanmode-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "fanmode" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.mode"] },
+            "if": { "default": ["oic.if.s", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Fan Mode"} ,
+            "id": { "default": "fanmode" },
+            "supportedmodes": { "default": ["on", "auto", "circulate"] },
+            "modes": { "default": "auto" }
+          },
+          "required": ["supportedmodes", "modes"]
+        }
+      }
+    },
+    "thermostat-rep": {
+      "type": "array",
+      "items": [
+        { "$ref": "#/definitions/measurement-rep" },
+        { "$ref": "#/definitions/setpoint-rep" },
+        { "$ref": "#/definitions/heat-setpoint-rep" },
+        { "$ref": "#/definitions/cool-setpoint-rep" },
+        { "$ref": "#/definitions/mode-rep" },
+        { "$ref": "#/definitions/state-rep" },
+        { "$ref": "#/definitions/fanmode-rep" }
+      ],
+      "additionalItems": true
+    }
+  },
+  "$ref": "#/definitions/thermostat-rep"
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-v4/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "id": "https://www.openconnectivity.org/ocf-apis/core/schemas/oic.r.thermostat.schema-baseline.json#",
+  "definitions": {
+    "measurement-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "measurement" },
+          "rt": { "default": ["oic.r.temperature"] },
+          "if": { "default": ["oic.if.s", "oic.if.baseline"]},
+          "ins": { "default": "measurement"},
+          "title": { "default": "Measured Temperature"}
+      }
+    },
+    "setpoint-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "setpoint" },
+          "rt": { "default": ["oic.r.temperature"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "setpoint"},
+          "title": { "default": "Set Temperature"}
+      }
+    },
+    "heat-setpoint-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "heat-setpoint" },
+          "rt": { "default": ["oic.r.temperature"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "heat-setpoint"},
+          "title": { "default": "Heat Temperature"}
+        }
+    },
+    "cool-setpoint-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "cool-setpoint" },
+          "rt": { "default": ["oic.r.temperature"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "cool-setpoint"},
+          "title": { "default": "Cool Temperature"}
+      }
+    },
+    "state-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "state" },
+          "rt": { "default": ["oic.r.operationalstate"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "state"},
+          "title": { "default": "Thermostat State"}
+      }
+    },
+    "mode-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "mode" },
+          "rt": { "default": ["oic.r.mode"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "mode"},
+          "title": { "default": "Thermostat Mode"}
+        }
+    },
+    "fanmode-link": {
+      "type": "object",
+        "properties": {
+          "href": { "default": "fanmode" },
+          "rt": { "default": ["oic.r.mode"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "fanmode"},
+          "title": { "default": "Fan Mode"}
+        }
+    },
+    "thermostat-links": {
+      "type": "array",
+      "items": [
+        { "$ref": "#/definitions/measurement-link" },
+        { "$ref": "#/definitions/setpoint-link" },
+        { "$ref": "#/definitions/heat-setpoint-link" },
+        { "$ref": "#/definitions/cool-setpoint-link" },
+        { "$ref": "#/definitions/mode-link" },
+        { "$ref": "#/definitions/state-link" },
+        { "$ref": "#/definitions/fanmode-link" }
+      ],
+      "additionalItems": { "$ref": "oic.oic-link-schema.json" }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "rt":  {
+      "type": "array",
+      "items": [
+        { "enum": ["oic.wk.col", "oic.r.thermostat"] }
+      ],
+      "default": ["oic.wk.col", "oic.r.thermostat"],
+      "additionalItems": { "type": "string" }
+    },
+    "if": {
+      "type": "array",
+      "items": [
+        { "enum": ["oic.if.baseline", "oic.if.b", "oic.if.ll"] }
+      ],
+      "default": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
+      "additionalItems": { "type": "string" }
+    },
+    "rts":  {
+      "type": "array",
+      "items": [
+        { "enum": ["oic.r.temperature", "oic.r.mode", "oic.r.operationalstate"] }
+      ],
+      "default": ["oic.r.temperature", "oic.r.mode", "oic.r.operationalstate"],
+      "additionalItems": { "type": "string" }
+    },
+    "links": {
+      "$ref": "#/definitions/thermostat-links"
+    }
+  }
+}
