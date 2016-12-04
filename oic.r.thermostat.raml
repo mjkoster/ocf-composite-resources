@@ -8,7 +8,7 @@ documentation:
 
   - title: OCF Thermostat
     content: |
-      Thermostat model using composite resurces
+      Thermostat model using the composite collection resource design
 
   - title: Introduction
     content: |
@@ -80,7 +80,7 @@ traits:
                   {
                     "href": "setpoint",
                     "ins": "setpoint",
-                    "title": "Set Tempertature",
+                    "title": "Set Temperature",
                     "rt":   ["oic.r.temperature"],
                     "if":   ["oic.if.a", "oic.if.baseline"]
                   },
@@ -142,6 +142,13 @@ traits:
                     "rep":
                       {
                         "temperature": 22.0
+                      }
+                  },
+                  {
+                    "href": "state",
+                    "rep":
+                      {
+                        "currentmachinestate": "heating"
                       }
                   }
                 ]
@@ -245,6 +252,13 @@ traits:
                       "ins": "setpoint",
                       "title": "Set Tempertature",
                       "rt":   ["oic.r.temperature"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "state",
+                      "ins": "state",
+                      "title": "Thermostat State",
+                      "rt":   ["oic.r.operationalstate"],
                       "if":   ["oic.if.a", "oic.if.baseline"]
                     }
                   ]

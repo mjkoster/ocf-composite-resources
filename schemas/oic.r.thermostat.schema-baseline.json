@@ -75,15 +75,17 @@
     },
     "thermostat-links": {
       "type": "array",
-      "items": [
-        { "$ref": "#/definitions/measurement-link" },
-        { "$ref": "#/definitions/setpoint-link" },
-        { "$ref": "#/definitions/heat-setpoint-link" },
-        { "$ref": "#/definitions/cool-setpoint-link" },
-        { "$ref": "#/definitions/mode-link" },
-        { "$ref": "#/definitions/state-link" },
-        { "$ref": "#/definitions/fanmode-link" }
-      ],
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/measurement-link" },
+          { "$ref": "#/definitions/setpoint-link" },
+          { "$ref": "#/definitions/heat-setpoint-link" },
+          { "$ref": "#/definitions/cool-setpoint-link" },
+          { "$ref": "#/definitions/mode-link" },
+          { "$ref": "#/definitions/state-link" },
+          { "$ref": "#/definitions/fanmode-link" }
+        ]
+      },
       "additionalItems": { "$ref": "oic.oic-link-schema.json" }
     }
   },

@@ -93,7 +93,7 @@
             "machinestates": { "default": ["heating", "idle", "pending cool", "vent economizer", "cooling", "pending heat", "fan only"] },
             "currentmachinestate": { "default": "idle" }
           },
-          "required": ["machinestates", "currentmachinestate"]
+          "required": ["currentmachinestate"]
         }
       }
     },
@@ -111,7 +111,7 @@
             "supportedmodes": { "default": ["emergency heat", "heat", "cool", "off", "auto"] },
             "modes": { "default": "off" }
           },
-          "required": ["supportermodes", "modes"]
+          "required": ["modes"]
         }
       }
     },
@@ -129,21 +129,23 @@
             "supportedmodes": { "default": ["on", "auto", "circulate"] },
             "modes": { "default": "auto" }
           },
-          "required": ["supportedmodes", "modes"]
+          "required": ["modes"]
         }
       }
     },
     "thermostat-rep": {
       "type": "array",
-      "items": [
-        { "$ref": "#/definitions/measurement-rep" },
-        { "$ref": "#/definitions/setpoint-rep" },
-        { "$ref": "#/definitions/heat-setpoint-rep" },
-        { "$ref": "#/definitions/cool-setpoint-rep" },
-        { "$ref": "#/definitions/mode-rep" },
-        { "$ref": "#/definitions/state-rep" },
-        { "$ref": "#/definitions/fanmode-rep" }
-      ],
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/measurement-rep" },
+          { "$ref": "#/definitions/setpoint-rep" },
+          { "$ref": "#/definitions/heat-setpoint-rep" },
+          { "$ref": "#/definitions/cool-setpoint-rep" },
+          { "$ref": "#/definitions/state-rep" },
+          { "$ref": "#/definitions/mode-rep" },
+          { "$ref": "#/definitions/fanmode-rep" }
+        ]
+      },
       "additionalItems": true
     }
   },
