@@ -46,8 +46,8 @@
           "properties": {
             "rt": { "default": ["oic.r.colourchroma"] },
             "if": { "default": ["oic.if.a", "oic.if.baseline"] },
-            "n": { "default": "Heating Temperature"} ,
-            "id": { "default": "heat-setpoint" },
+            "n": { "default": "Color Control"} ,
+            "id": { "default": "colorcontrol" },
             "hue": { "default": 0 },
             "saturation": { "default": 0 },
             "csc": { "default": [0,0] }
