@@ -6,13 +6,13 @@ title: OCF Thermostat
 version: 0.1
 documentation:
 
-  - title: OCF Thermostat
+  - title: OCF Luminaire
     content: |
-      Thermostat model using the composite collection resource design
+      Luminaire model using the composite collection resource design
 
   - title: Introduction
     content: |
-      Thermostat modeled after a common thermostat capability,
+      Luminaire modeled after a common lighting capability set,
       composed from standard OCF resource types
 
   - title: Resource Design
@@ -24,9 +24,9 @@ documentation:
       by the different query parameter traits
 
 schemas:
-  - sbaseline: !include schemas/oic.r.thermostat.schema-baseline.json
-  - sbatch: !include schemas/oic.r.thermostat.schema-b.json
-  - slinks: !include schemas/oic.r.thermostat.schema-ll.json
+  - sbaseline: !include schemas/oic.r.luminaire.schema-baseline.json
+  - sbatch: !include schemas/oic.r.luminaire.schema-b.json
+  - slinks: !include schemas/oic.r.luminaire.schema-ll.json
 
 traits:
   - interface-baseline:
@@ -45,7 +45,7 @@ traits:
           enum: ["oic.if.ll"]
 
 
-/ThermostatBaselineInterfaceURI:
+/LuminaireBaselineInterfaceURI:
   description: |
     OCF Collection Resource Type contains properties and links.
     The oic.if.baseline interface exposes a representation of
@@ -66,34 +66,55 @@ traits:
             schema: sbaseline
             example: |
               {
-                "rt": ["oic.wk.col", "oic.r.thermostat"],
+                "rt": ["oic.wk.col", "oic.r.luminaire"],
                 "if": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
-                "rts": ["oic.r.temperature", "oic.r.mode" , "oic.r.operationalstate"],
+                "rts": ["oic.r.binaryswitch", "oic.r.brightness" , "oic.r.colourcontrol", "oic.r.ramptime", "oic.r.actuation"],
                 "links": [
                   {
-                    "href": "measurement",
-                    "ins": "measurement",
-                    "title": "Measured Temperature",
-                    "rt":   ["oic.r.temperature"],
-                    "if":   ["oic.if.s", "oic.if.baseline"]
-                  },
-                  {
-                    "href": "setpoint",
-                    "ins": "setpoint",
-                    "title": "Set Temperature",
-                    "rt":   ["oic.r.temperature"],
+                    "href": "switch",
+                    "ins": "switch",
+                    "title": "On/Off Switch",
+                    "rt":   ["oic.r.binaryswitch"],
                     "if":   ["oic.if.a", "oic.if.baseline"]
                   },
                   {
-                    "href": "state",
-                    "ins": "state",
-                    "title": "Thermostat State",
-                    "rt":   ["oic.r.operationalstate"],
+                    "href": "level",
+                    "ins": "level",
+                    "title": "Brightness Level",
+                    "rt":   ["oic.r.brightness"],
+                    "if":   ["oic.if.a", "oic.if.baseline"]
+                  },
+                  {
+                    "href": "colorcontrol",
+                    "ins": "colorcontrol",
+                    "title": "Color Control",
+                    "rt":   ["oic.r.colourchroma"],
+                    "if":   ["oic.if.a", "oic.if.baseline"]
+                  },
+                  {
+                    "href": "colortemperature",
+                    "ins": "colortemperature",
+                    "title": "Color Temperature",
+                    "rt":   ["oic.r.colourchroma"],
+                    "if":   ["oic.if.a", "oic.if.baseline"]
+                  },
+                  {
+                    "href": "ramptime",
+                    "ins": "ramptime",
+                    "title": "Ramp Time",
+                    "rt":   ["oic.r.ramptime"],
+                    "if":   ["oic.if.a", "oic.if.baseline"]
+                  },
+                  {
+                    "href": "actuation",
+                    "rel": "actuator",
+                    "ins": "actuation",
+                    "title": "Actuation",
+                    "rt":   ["oic.r.actuation", "oic.r.binaryswitch", "oic.r.brightness", "oic.r.colourchroma", "oic.r.ramptime"],
                     "if":   ["oic.if.a", "oic.if.baseline"]
                   }
                 ]
               }
-
 
   post:
     description: |
@@ -110,7 +131,7 @@ traits:
             schema: sbaseline
 
 
-/ThermostatBatchInterfaceURI:
+/LuminaireBatchInterfaceURI:
     description: |
       The oic.if.b interfacce exposes a composite representation of the
       resources pointed to by the links
@@ -131,24 +152,17 @@ traits:
               example: |
                 [
                   {
-                    "href": "measurement",
+                    "href": "switch",
                     "rep":
                       {
-                        "temperature": 21.5
+                        "value": true
                       }
                   },
                   {
-                    "href": "setpoint",
+                    "href": "level",
                     "rep":
                       {
-                        "temperature": 22.0
-                      }
-                  },
-                  {
-                    "href": "state",
-                    "rep":
-                      {
-                        "currentmachinestate": "heating"
+                        "brightness": 77
                       }
                   }
                 ]
@@ -161,10 +175,10 @@ traits:
               example: |
                 [
                   {
-                    "href": "measurement",
+                    "href": "switch",
                     "rep":
                       {
-                        "temperature": 21.5
+                        "value": false
                       }
                   }
                 ]
@@ -179,10 +193,24 @@ traits:
           example: |
             [
               {
-                "href": "setpoint",
+                "href": "level",
                 "rep":
                   {
-                    "temperature": 22.0
+                    "brightness": 100
+                  }
+              },
+              {
+                "href": "colortemperature",
+                "rep":
+                  {
+                    "ct": 4700
+                  }
+              },
+              {
+                "href": "ramptime",
+                "rep":
+                  {
+                    "ramptime": 10
                   }
               }
             ]
@@ -196,10 +224,17 @@ traits:
               example: |
                 [
                   {
-                    "href": "setpoint",
+                    "href": "level",
                     "rep":
                       {
-                        "temperature": 22.0
+                        "brightness": 100
+                      }
+                  },
+                  {
+                    "href": "ramptime",
+                    "rep":
+                      {
+                        "ramptime": 10
                       }
                   }
                 ]
@@ -213,15 +248,15 @@ traits:
               example: |
                 [
                   {
-                    "href": "setpoint",
+                    "href": "level",
                     "rep":
                       {
-                        "temperature": 21.0
+                        "brightness": 0
                       }
                   }
                 ]
 
-/ThermostatLinkListInterfaceURI:
+/LuminaireLinkListInterfaceURI:
     description: |
       The oic.if.ll interface exposes a representation of the links
 
@@ -241,24 +276,46 @@ traits:
                 {
                   "links": [
                     {
-                      "href": "measurement",
-                      "ins": "measurement",
-                      "title": "Measured Temperature",
-                      "rt":   ["oic.r.temperature"],
-                      "if":   ["oic.if.s", "oic.if.baseline"]
-                    },
-                    {
-                      "href": "setpoint",
-                      "ins": "setpoint",
-                      "title": "Set Tempertature",
-                      "rt":   ["oic.r.temperature"],
+                      "href": "switch",
+                      "ins": "switch",
+                      "title": "On/Off Switch",
+                      "rt":   ["oic.r.binaryswitch"],
                       "if":   ["oic.if.a", "oic.if.baseline"]
                     },
                     {
-                      "href": "state",
-                      "ins": "state",
-                      "title": "Thermostat State",
-                      "rt":   ["oic.r.operationalstate"],
+                      "href": "level",
+                      "ins": "level",
+                      "title": "Brightness Level",
+                      "rt":   ["oic.r.brightness"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "colorcontrol",
+                      "ins": "colorcontrol",
+                      "title": "Color Control",
+                      "rt":   ["oic.r.colourchroma"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "colortemperature",
+                      "ins": "colortemperature",
+                      "title": "Color Temperature",
+                      "rt":   ["oic.r.colourchroma"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "ramptime",
+                      "ins": "ramptime",
+                      "title": "Ramp Time",
+                      "rt":   ["oic.r.ramptime"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "actuation",
+                      "rel": "actuator",
+                      "ins": "actuation",
+                      "title": "Actuation",
+                      "rt":   ["oic.r.actuation", "oic.r.binaryswitch", "oic.r.brightness", "oic.r.colourchroma", "oic.r.ramptime"],
                       "if":   ["oic.if.a", "oic.if.baseline"]
                     }
                   ]

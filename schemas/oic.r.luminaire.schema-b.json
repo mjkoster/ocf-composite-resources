@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-v4/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "id": "https://www.openconnectivity.org/ocf-apis/core/schemas/oic.r.luminaire.schema-b.json#",
+  "definitions": {
+    "switch-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "switch" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.binaryswitch"] },
+            "if": { "default": ["oic.if.a", "oic.if.baseline"] },
+            "n": { "default": "On/Off Switch"} ,
+            "id": { "default": "switch" },
+            "value": { "default": false }
+          },
+          "required": ["value"]
+        }
+      }
+    },
+    "level-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "level" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.brightness"] },
+            "if": { "default": ["oic.if.a", "oic.if.baseline"] },
+            "n": { "default": "Brightness Level"} ,
+            "id": { "default": "level" },
+            "brightness": { "default": 0 }
+          },
+          "required": ["brightness"]
+        }
+      }
+    },
+    "colorcontrol-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "colorcontrol" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.colourchroma"] },
+            "if": { "default": ["oic.if.a", "oic.if.baseline"] },
+            "n": { "default": "Heating Temperature"} ,
+            "id": { "default": "heat-setpoint" },
+            "hue": { "default": 0 },
+            "saturation": { "default": 0 },
+            "csc": { "default": [0,0] }
+          },
+          "required": ["hue", "saturation", "csc"]
+        }
+      }
+    },
+    "colortemperature-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "colortemperature" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.colourchroma"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Color Temperature"} ,
+            "id": { "default": "colortemperature" },
+            "ct": { "default": 0 }
+          },
+          "required": ["ct"]
+        }
+      }
+    },
+    "ramptime-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "ramptime" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.ramptime"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Ramp Time"} ,
+            "id": { "default": "ramptime" },
+            "ramptime": { "default": 0 }
+          },
+          "required": ["ramptime"]
+        }
+      }
+    },
+    "actuation-rep": {
+      "type": "object",
+      "properties": {
+        "href": { "default": "actuation" },
+        "rep": {
+          "type": "object",
+          "properties": {
+            "rt": { "default": ["oic.r.actuation"] },
+            "if": { "default": ["oic.if.a", "oic.if.r", "oic.if.baseline"] },
+            "n": { "default": "Actuation"} ,
+            "id": { "default": "actuation" }
+          }
+        }
+      }
+    },
+    "luminaire-rep": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/switch-rep" },
+          { "$ref": "#/definitions/level-rep" },
+          { "$ref": "#/definitions/colorcontrol-rep" },
+          { "$ref": "#/definitions/colortemperature-rep" },
+          { "$ref": "#/definitions/ramptime-rep" }
+        ]
+      },
+      "additionalItems": true
+    }
+  },
+  "$ref": "#/definitions/luminaire-rep"
+}

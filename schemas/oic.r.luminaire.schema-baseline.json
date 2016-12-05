@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-v4/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "id": "https://www.openconnectivity.org/ocf-apis/core/schemas/oic.r.luminaire.schema-baseline.json#",
+  "definitions": {
+    "switch-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "switch" },
+          "rt": { "default": ["oic.r.binaryswitch"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "switch"},
+          "title": { "default": "On/Off Switch"}
+      }
+    },
+    "level-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "level" },
+          "rt": { "default": ["oic.r.brightness"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "level"},
+          "title": { "default": "Brightness Level"}
+      }
+    },
+    "colorcontrol-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "colorcontrol" },
+          "rt": { "default": ["oic.r.colourchroma"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "colorcontrol"},
+          "title": { "default": "Color Control"}
+        }
+    },
+    "colortemperature-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "colortemperature" },
+          "rt": { "default": ["oic.r.colourchroma"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "colortemperature"},
+          "title": { "default": "Color Temperature"}
+      }
+    },
+    "ramptime-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "ramptime-link" },
+          "rt": { "default": ["oic.r.ramptime"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "ramptime"},
+          "title": { "default": "Ramp Time"}
+      }
+    },
+    "actuation-link": {
+      "type": "object",
+      "properties": {
+          "href": { "default": "actuation" },
+          "rel": { "default": "actuator" },
+          "rt": { "default": ["oic.r.actuation"] },
+          "if": { "default": ["oic.if.a", "oic.if.baseline"]},
+          "ins": { "default": "actuation"},
+          "title": { "default": "Actuation"}
+        }
+    },
+    "luminaire-links": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/switch-link" },
+          { "$ref": "#/definitions/level-link" },
+          { "$ref": "#/definitions/colorcontrol-link" },
+          { "$ref": "#/definitions/colortemperature-link" },
+          { "$ref": "#/definitions/ramptime-link" },
+          { "$ref": "#/definitions/actuation-link" }
+        ]
+      },
+      "additionalItems": { "$ref": "oic.oic-link-schema.json" }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "rt":  {
+      "type": "array",
+      "items": [
+        { "enum": ["oic.wk.col", "oic.r.luminaire"] }
+      ],
+      "default": ["oic.wk.col", "oic.r.luminaire"],
+      "additionalItems": { "type": "string" }
+    },
+    "if": {
+      "type": "array",
+      "items": [
+        { "enum": ["oic.if.baseline", "oic.if.b", "oic.if.ll"] }
+      ],
+      "default": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
+      "additionalItems": { "type": "string" }
+    },
+    "rts":  {
+      "type": "array",
+      "items": [
+        { "enum": ["oic.r.binaryswitch", "oic.r.brightness" , "oic.r.colourcontrol", "oic.r.ramptime", "oic.r.actuation"] }
+      ],
+      "default": ["oic.r.binaryswitch", "oic.r.brightness" , "oic.r.colourcontrol", "oic.r.ramptime", "oic.r.actuation"],
+      "additionalItems": { "type": "string" }
+    },
+    "links": {
+      "$ref": "#/definitions/luminaire-links"
+    }
+  }
+}
