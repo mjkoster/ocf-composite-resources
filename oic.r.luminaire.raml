@@ -2,7 +2,7 @@
 #RAML for OIC Collections.
 # This is an initial version; has to be converted to a RAML resource type so that it can be used when defining resource that
 # are collections. Also needs to use traits to have the same query parameters recognized for all the methods.
-title: OCF Thermostat
+title: OCF Luminaire
 version: 0.1
 documentation:
 
@@ -52,7 +52,7 @@ traits:
     the links and the properties of the collection resource itself
 
 
-  displayName: OCF Thermostat
+  displayName: OCF Luminaire
   is: [ interface-baseline ]
 
   get:
@@ -228,6 +228,13 @@ traits:
                     "rep":
                       {
                         "brightness": 100
+                      }
+                  },
+                  {
+                    "href": "colortemperature",
+                    "rep":
+                      {
+                        "ct": 4700
                       }
                   },
                   {
