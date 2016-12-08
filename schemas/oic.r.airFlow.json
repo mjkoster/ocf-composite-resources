@@ -1,0 +1,36 @@
+{
+  "id": "http://openinterconnect.org/iotdatamodels/schemas/oic.r.airFlow.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Air Flow",
+  "definitions": {
+    "oic.r.airflow": {
+      "type": "object",
+      "properties": {
+        "direction": {
+          "type": "string",
+          "description": "Directionality of the air flow"
+        },
+        "speed": {
+          "type": "integer",
+          "description": "Current speed level"
+        },
+        "range": {
+          "type": "array",
+          "readOnly": true,
+          "description": "Min,max values for the speed level",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {"$ref": "oic.core.json#/definitions/oic.core"},
+    {"$ref": "oic.baseResource.json#/definitions/oic.r.baseresource"},
+    {"$ref": "#/definitions/oic.r.airflow"}
+  ],
+  "required": ["speed"]
+}
