@@ -1,0 +1,30 @@
+{
+  "id": "http://openinterconnect.org/iotdatamodels/schemas/oic.r.time.period.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Time Period",
+  "definitions": {
+    "oic.r.time.period": {
+      "type": "object",
+      "properties": {
+        "startTime":{
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time for the time period"
+        },
+        "stopTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Stop time for the time period"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {"$ref": "oic.core.json#/definitions/oic.core"},
+    {"$ref": "oic.baseResource.json#/definitions/oic.r.baseresource"},
+    {"$ref": "#/definitions/oic.r.time.period"}
+  ],
+  "required": ["startTime"]
+}
