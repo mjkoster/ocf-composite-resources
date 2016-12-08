@@ -109,7 +109,7 @@
             "n": { "default": "Thermostat Mode"} ,
             "id": { "default": "mode" },
             "supportedmodes": { "default": ["emergency heat", "heat", "cool", "off", "auto"] },
-            "modes": { "default": "off" }
+            "modes": { "default": ["off"] }
           },
           "required": ["modes"]
         }
@@ -127,7 +127,7 @@
             "n": { "default": "Fan Mode"} ,
             "id": { "default": "fanmode" },
             "supportedmodes": { "default": ["on", "auto", "circulate"] },
-            "modes": { "default": "auto" }
+            "modes": { "default": ["auto"] }
           },
           "required": ["modes"]
         }
