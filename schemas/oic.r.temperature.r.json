@@ -1,0 +1,40 @@
+{
+  "id": "http://openinterconnect.org/iotdatamodels//oic.r.temperature.r.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Temperature readable properties",
+  "definitions": {
+    "oic.r.temperature.r": {
+      "type": "object",
+      "properties": {
+        "units":  {
+          "oneOf": [
+            {
+              "enum": ["C","F","K"],
+              "readOnly": true,
+              "description": "Units for the temperature value"
+            },
+            {
+              "type": "array",
+              "items": {
+                "enum": ["C","F","K"]
+              }
+            }
+          ]
+        },
+        "range":  {
+          "type": "array",
+          "readOnly": true,
+          "description": "Array defining min,max values for this temperature on this device",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {"$ref": "#/definitions/oic.r.temperature.r"}
+  ]
+}

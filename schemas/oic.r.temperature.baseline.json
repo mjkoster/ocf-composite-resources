@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Temperature baseline",
+  "type": "object",
+  "allOf": [
+    {"$ref": "oic.core-schema.json#/definitions/oic.core"},
+    {"$ref": "oic.r.temperature.r.json#/definitions/oic.r.temperature.r"},
+    {"$ref": "oic.r.temperature.a.json#/definitions/oic.r.temperature.a"}
+]
+}

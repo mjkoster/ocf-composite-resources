@@ -1,0 +1,22 @@
+{
+  "id": "http://openinterconnect.org/iotdatamodels/schemas/oic.r.temperature.a.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Temperature sensor and actuator properties",
+  "definitions": {
+    "oic.r.temperature.a": {
+      "type": "object",
+      "properties": {
+        "temperature":  {
+          "type": "number",
+          "description": "Current temperature setting or measurement"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "allOf": [
+    {"$ref": "#/definitions/oic.r.temperature.a"}
+  ],
+  "required": ["temperature"]
+}
