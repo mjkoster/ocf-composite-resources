@@ -1,0 +1,224 @@
+Example 1, basic resource interfaces
+oic.r.temperature
+oic.if.baseline
+
+{
+  "rt": ["oic.r.temperature'"],
+  "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+}
+
+oic.if.s
+
+{
+  "temperature": 77
+}
+
+oic.if.r
+
+{
+  "units": "C",
+  "range": [-40, 80]
+}
+
+
+oic.r.humidity
+oic.if.baseline
+
+{
+  "rt": ["oic.r.humidity'"],
+  "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+}
+
+oic.if.s
+
+{
+  "humidity": 49
+}
+
+oic.if.r
+
+{
+  "units": "%",
+  "range": [0, 100]
+}
+
+oic.r.conditionalnotification
+
+oic.if.baseline
+
+{
+  "if": ["oic.if.r"],
+  "rt": ["oic.if.conditionalnotification"]
+}
+
+oic.if.r
+
+{
+  "minnotificationperiod": 1,
+  "maxnotificationperiod": 100,
+  "threshold": 1
+}
+
+Example 2, multi-RT resource composition
+
+oic.r.temperature and oic.r.conditionalnotification as multi-RT
+
+oic.if.baseline
+
+{
+  "rt": ["oic.r.temperature", "oic.r.conditionalnotification"],
+  "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+}
+
+oic.if.s
+
+{
+  "temperature": 77
+}
+
+oic.if.r
+
+{
+  "units": "C",
+  "range": [-40, 80],
+  "minnotificationperiod": 1,
+  "maxnotificationperiod": 100,
+  "threshold": 1
+}
+
+oic.r.temperature and oic.r.humidity as multi-RT
+
+oic.if.baseline
+
+{
+  "rt": ["oic.r.temperature", "oic.r.humidity"],
+  "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+}
+
+oic.if.s
+
+{
+  "temperature": 77,
+  "humidity": 49
+}
+
+oic.if.r
+
+{
+  "units": CONFLICT,
+  "range": CONFLICT
+}
+
+Example 3, collection
+
+oic.r.temperature and oic.r.humidity as collection
+
+oic.if.b with oic.if.s endpoint
+
+[
+  {
+    "href": "temp",
+    "rep": {
+      "temperature": 77
+    }
+  },
+  {
+    "href": "humid",
+    "rep": {
+      "humidity": 49
+    }
+  }
+]
+
+  {
+    "href": "temp",
+    "rep": {
+      "temperature": 77
+    }
+  }
+
+oic.if.b with oic.if.r endpoints
+
+[
+  {
+    "href": "temp",
+    "rep": {
+      "units": "C",
+      "range": [-40, 80],
+  }
+  },
+  {
+    "href": "humid",
+    "rep": {
+      "units": "%",
+      "range": [0, 100]
+    }
+  }
+]
+
+
+oic.r.temperature, oic.r.humidity, amd oic.r.conditionalnotification,
+composed as a collection with multi-RT endpoints
+oic.if.baseline
+
+{
+  "rt": "oic.wk.col",
+  "if": ["oic.if.baseline", "oic.if.b"],
+  "rts": ["oic.r.temperature", "oic.r.humidity", "oic.r.conditionalnotification"],
+  "links": [
+    {
+      "href": "temp",
+      "rt": ["oic.r.temperature", "oic.r.conditionalnotification"],
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+    },
+    {
+      "href": "humid",
+      "rt": ["oic.r.humidity", "oic.r.conditionalnotification"],
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+    }
+  ]
+}
+
+oic.if.b with oic.if.baseline endpoints
+
+[
+  {
+    "href": "temp",
+    "rep": {
+      "rt": ["oic.r.temperature", "oic.r.conditionalnotification"],
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+    }
+  },
+  {
+    "href": "humid",
+    "rep": {
+      "rt": ["oic.r.humidity", "oic.r.conditionalnotification"],
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+    }
+  }
+]
+
+oic.if.b with oic.if.r endpoints
+
+[
+  {
+    "href": "temp",
+    "rep": {
+      "units": "C",
+      "range": [-40, 80],
+      "minnotificationperiod": 1,
+      "maxnotificationperiod": 100,
+      "threshold": 1
+  }
+  },
+  {
+    "href": "humid",
+    "rep": {
+      "units": "%",
+      "range": [0, 100],
+      "minnotificationperiod": 1,
+      "maxnotificationperiod": 100,
+      "threshold": 1
+    }
+  }
+]
