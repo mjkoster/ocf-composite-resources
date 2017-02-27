@@ -130,13 +130,6 @@ oic.if.b with oic.if.s endpoint
   }
 ]
 
-  {
-    "href": "temp",
-    "rep": {
-      "temperature": 77
-    }
-  }
-
 oic.if.b with oic.if.r endpoints
 
 [
@@ -157,7 +150,7 @@ oic.if.b with oic.if.r endpoints
 ]
 
 
-oic.r.temperature, oic.r.humidity, amd oic.r.conditionalnotification,
+oic.r.temperature, oic.r.humidity, and oic.r.conditionalnotification,
 composed as a collection with multi-RT endpoints
 oic.if.baseline
 
