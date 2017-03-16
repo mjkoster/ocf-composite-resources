@@ -1,0 +1,242 @@
+#%RAML 0.8
+# RAML for OCF Action.
+# Resource type representing an Action which may be performed on a resource
+# describes the action type, the mathod for invoking the action, and
+# resource types which may be invoked in the payload
+# Supports the update pattern, where oic.r.actuation is composed onto another
+# resource, or the create pattern, where oic.r.action contains a
+# collection of oic.r.actuation instances
+
+title: OCF Action
+version: 0.1
+documentation:
+
+  - title: OCF Action
+    content: |
+      Parameters for invoking an Action on a resource
+
+  - title: Introduction
+    content: |
+      This resource type exposes properties that inform the client how to invoke
+      an action on the resource that uses oic.r.action
+
+  - title: Resource Design
+    content: |
+      This resource type may be used as standalone resource type or composed onto
+      the resources being actuated. It describes what the action does and how
+      to invoke it
+
+      The oic.if.r interface exposes the actuation controls for type, method,
+      and resource types
+
+      The oic.if.a interface optionally exposes the actuation resource if the
+      create pattern is being used
+
+schemas:
+  - schema-baseline: !include schemas/oic.r.action.schema-baseline.json
+  - schema-ll: !include schemas/oic.r.action.schema-ll.json
+  - schema-r: !include schemas/oic.r.action.schema-r.json
+  - schema-a: !include schemas/oic.r.action.schema-a.json
+  - schema-b: !include schemas/oic.r.action.schema-b.json
+
+traits:
+  - interface-baseline:
+      queryParameters:
+        if:
+          enum: ["oic.if.baseline"]
+
+  - interface-r:
+      queryParameters:
+        if:
+          enum: ["oic.if.r"]
+
+  - interface-a:
+      queryParameters:
+        if:
+          enum: ["oic.if.a"]
+
+  - interface-b:
+      queryParameters:
+        if:
+          enum: ["oic.if.b"]
+
+  - interface-ll:
+      queryParameters:
+        if:
+          enum: ["oic.if.ll"]
+
+
+/ActionBaselineInterfaceURI:
+  description: |
+    The oic.if.baseline interface exposes a representation of
+    the links and the properties
+
+
+  displayName: Action Baseline
+  is: [ interface-baseline ]
+
+  get:
+    description: |
+      Retrieve on Baseline Interface
+
+    responses:
+      200:
+        body:
+          application/json:
+            schema: schema-baseline
+            example: |
+              {
+                "rt": ["oic.wk.col", "oic.r.action"],
+                "if": ["oic.if.baseline", "oic.if.b", "oic.if.ll", "oic.if.a", "oic.if.r"],
+                "rts": ["oic.r.actuation"],
+                "action.type": ["moveto", "level"],
+                "action.method": "oic.method.create",
+                "action.rts": ["oic.r.brightness", "oic.r.ramptime"],
+                "links": [
+                  {
+                    "href": "0000001c",
+                    "rt":   ["oic.r.actuation"],
+                    "if":   ["oic.if.rw", "oic.if.baseline"]
+                  },
+                  {
+                    "href": "0000001d",
+                    "rt":   ["oic.r.actuation"],
+                    "if":   ["oic.if.rw", "oic.if.baseline"]
+                  }
+                ]
+              }
+
+
+/ActionReadInterfaceURI:
+    description: |
+      The oic.if.r interface exposes a representation of static properties
+
+    displayName: Read Action static properties
+    is: [ interface-r ]
+
+    get:
+      description: |
+        Retrieve Action static properties
+
+      responses:
+        200:
+          description: "return the static properties describing the Action"
+          body:
+            application/json:
+              schema: schema-r
+              example: |
+                [
+                  {
+                    "action.type": ["moveto", "level"],
+                    "action.method": "oic.method.create",
+                    "action.rts": ["oic.r.brightness", "oic.r.ramptime"]
+                   }
+                ]
+
+
+/ActionCreateInterfaceURI:
+    description: |
+      The oic.if.a interface allows invoking an action using the create pattern
+      THe payload is used to create a new actuation resource in the collection
+
+    displayName: Invoke Action using Create
+    is: [ interface-a ]
+
+    post:
+      description: |
+        Invoke the action by creating an actuation
+
+      responses:
+        201:
+          description: Created
+          headers: {"Location": {"type": "string"}}
+          body:
+            application/json:
+              schema: schema-a
+              example: |
+                [
+                  {
+                    "brightness": 217,
+                    "ramptime": 30
+                   }
+                ]
+
+
+/ActionListInterfaceURI:
+    description: |
+      The oic.if.b interface exposes the list of actuations in batch format
+
+    displayName: Batch List of Actuations
+    is: [ interface-b ]
+
+    get:
+      description: |
+        List of Actuations in batch format
+
+      responses:
+        205:
+          description: Content returned
+          headers:
+          body:
+            application/json:
+              schema: schema-a
+              example: |
+                [
+                  {
+                    "href": "0000001c",
+                    "rep":
+                      {
+                        "actuation.status": "completed",
+                        "actuation.progress": "100"
+                        "actuation.payload":
+                          {
+                            "brightness": 55,
+                            "ramptime": 30
+                          }
+                      }
+                  },
+                  {
+                    "href": "0000001d",
+                    "rep":
+                      {
+                        "actuation.status": "completed",
+                        "actuation.progress": "100"
+                        "actuation.payload":
+                          {
+                            "brightness": 217,
+                            "ramptime": 30
+                          }
+                      }
+                  }
+                ]
+
+
+/ActionLinksInterfaceURI:
+    description: |
+      The oic.if.ll interface exposes a representation of the links
+
+    displayName: Link List Representation
+    is: [ interface-ll ]
+
+    get:
+      description: |
+        Retrieve the list of pending, running, and completed actuations
+
+      responses:
+        200:
+          body:
+            application/json:
+              schema: schema-ll
+              example: |
+                  [
+                    {
+                      "href": "0000001c",
+                      "rt":   ["oic.r.actuation"],
+                      "if":   ["oic.if.rw", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "0000001d",
+                      "rt":   ["oic.r.actuation"],
+                      "if":   ["oic.if.rw", "oic.if.baseline"]
+                    }
+                  ]

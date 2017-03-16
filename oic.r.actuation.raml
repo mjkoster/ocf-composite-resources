@@ -1,0 +1,123 @@
+#%RAML 0.8
+# RAML for OCF Actuation.
+# Resource type representing an invocation of an Action, where oic.r.actuation
+# is either composed onto another resource and invoked using update, or invoked
+# by creating a new instance in collection of oic.r.actuation instances
+
+title: OCF Actuation
+version: 0.1
+documentation:
+
+  - title: OCF Actuation
+    content: |
+      Represents the life cycle properties of an invoked Action 
+
+  - title: Introduction
+    content: |
+      This resource type exposes properties that can be used to track the
+      life cycle of an actuation
+
+  - title: Resource Design
+    content: |
+      This resource exposes life cycle properties of the actuation and the
+      payload used to invoke the action. It can be composed onto a resource
+      used for actuation using update, when only one instance of the action may
+      be invoked at a time. this resource type may also be used to create
+      instances of actuaction in a collection, for queueing pending actuation
+      and tracking the history of actuations
+
+schemas:
+  - schema-baseline: !include schemas/oic.r.actuation.schema-baseline.json
+  - schema-r: !include schemas/oic.rw.actuation.schema-r.json
+
+traits:
+  - interface-baseline:
+      queryParameters:
+        if:
+          enum: ["oic.if.baseline"]
+
+  - interface-r:
+      queryParameters:
+        if:
+          enum: ["oic.if.r"]
+
+  - interface-any:
+      queryParameters:
+        if:
+          enum: ["oic.if.r", "oic.if.baseline"]
+
+/ActuationBaselineInterfaceURI:
+  description: |
+    The oic.if.baseline interface exposes a representation of
+    the base and application properties
+
+
+  displayName: Action Baseline
+  is: [ interface-baseline ]
+
+  get:
+    description: |
+      Retrieve on Baseline Interface
+
+    responses:
+      200:
+        body:
+          application/json:
+            schema: schema-baseline
+            example: |
+              {
+                "rt": ["oic.r.actuation"],
+                "if": ["oic.if.baseline", "oic.if.r"],
+                "actuation.status": "completed",
+                "actuation.progress": "100",
+                "actuation.payload":
+                  {
+                    "brightness": 217,
+                    "ramptime": 30
+                  }
+              }
+
+
+/ActuationReadInterfaceURI:
+    description: |
+      The oic.if.r interface exposes the actuation life cycle properties
+
+    displayName: Read Actuation properties
+    is: [ interface-r]
+
+    get:
+      description: |
+        Retrieve Action life cycle properties
+
+      responses:
+        200:
+          description: "return the static properties describing the Action"
+          body:
+            application/json:
+              schema: schema-r
+              example: |
+                {
+                  "actuation.status": "completed",
+                  "actuation.progress": "100",
+                  "actuation.payload":
+                    {
+                      "brightness": 217,
+                      "ramptime": 30
+                    }
+                }
+
+
+/ActuationInterfaceURI:
+  description: |
+    For canceling a pending or running actuation, or deleting a completed actuation
+
+  displayName: Action Baseline
+  is: [ interface-any ]
+
+  delete:
+    description: |
+      Delete an Actuation
+
+    responses:
+      202:
+        description: "Deleted"
