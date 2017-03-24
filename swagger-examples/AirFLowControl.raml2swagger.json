@@ -1,0 +1,294 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OICAirFlowControl",
+    "version": "v1.1.0-20160519",
+    "license": {
+      "name": "copyright 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+      "x-description": "Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:@cr        1.  Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.@cr        2.  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.@cr@cr        THIS SOFTWARE IS PROVIDED BY THE Open Connectivity Foundation, INC. 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE OR WARRANTIES OF NON-INFRINGEMENT, ARE DISCLAIMED. @cr        IN NO EVENT SHALL THE Open Connectivity Foundation, INC. OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) @cr        HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.@cr"
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/AirFlowControlResURI?if=oic.if.baseline" : {
+      "get": {
+        "description": "This resource",
+        "parameters": [
+          {"$ref": "#/parameters/interface-baseline"}
+        ],
+        "responses": {
+            "200": {
+              "description" : "Retrieve",
+              "x-example":
+                {
+                  "rt": ["oic.r.airflowControl", "oic.wk.col"],
+                  "if": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
+                  "links": [
+                    {
+                      "href": "BinarySwitchResURI",
+                      "rt":   ["oic.r.switch.binary"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    },
+                    {
+                      "href": "AirFlowResURI",
+                      "rt":   ["oic.r.airflow"],
+                      "if":   ["oic.if.a", "oic.if.baseline"]
+                    }
+                  ]
+                },
+              "schema": { "$ref": "#/definitions/AirFlowControlBaseline" }
+            }
+        }
+      }
+    },
+    "/AirFlowControlResURI?if=oic.if.b" : {
+      "get": {
+        "description": "This resource",
+        "parameters": [
+          {"$ref": "#/parameters/interface-b"}
+        ],
+        "responses": {
+            "200": {
+              "description" : "Retrieve",
+              "x-example":
+                [
+                  {
+                    "href": "BinarySwitchResURI",
+                    "rep": {
+                      "value": true
+                    }
+                  },
+                  {
+                    "href": "AirFlowResURI",
+                    "rep": {
+                      "direction":  "right",
+                      "speed": 3
+                    }
+                  }
+                ],
+              "schema": { "$ref": "#/definitions/AirFlowControlBatch" }
+            }
+        }
+      },
+      "post": {
+        "description": "Sets the current air flow control values using the batch interface@cr",
+        "parameters": [
+          {"$ref": "#/parameters/interface-b"},
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/AirFlowControlBatch" },
+            "x-example":
+              [
+                {
+                  "href": "BinarySwitchResURI",
+                  "rep": {
+                    "value": true
+                  }
+                },
+                {
+                  "href": "AirFlowResURI",
+                  "rep": {
+                    "direction":  "right",
+                    "speed": 3
+                  }
+                }
+              ]
+          }
+        ],
+        "responses": {
+            "200": {
+              "description" : "",
+              "x-example":
+                [
+                  {
+                    "href": "BinarySwitchResURI",
+                    "rep": {
+                      "value": true
+                    }
+                  },
+                  {
+                    "href": "AirFlowResURI",
+                    "rep": {
+                      "direction":  "right",
+                      "speed": 3
+                    }
+                  }
+                ],
+              "schema": { "$ref": "#/definitions/AirFlowControlBatch" }
+            },
+            "403": {
+              "description" : "This response is generated",
+              "x-example":
+                [
+                  {
+                    "href": "BinarySwitchResURI",
+                    "rep": {
+                       "value": true
+                    }
+                  },
+                  {
+                    "href": "AirFlowResURI",
+                    "rep": {
+                      "direction":  "right",
+                      "speed": 3
+                    }
+                  }
+                ],
+              "schema": { "$ref": "#/definitions/AirFlowControlBatch" }
+            }
+        }
+      }
+    }
+  },
+  "/AirFlowControlResURI?if=oic.if.ll" : {
+    "get": {
+      "description": "This resource",
+      "parameters": [
+        {"$ref": "#/parameters/interface-ll"}
+      ],
+      "responses": {
+          "200": {
+            "description" : "Retrieve",
+            "x-example":
+              [
+                {
+                  "href": "BinarySwitchResURI",
+                  "rt":   ["oic.r.switch.binary"],
+                  "if":   ["oic.if.a", "oic.if.baseline"]
+                },
+                {
+                  "href": "AirFlowResURI",
+                  "rt":   ["oic.r.airflow"],
+                  "if":   ["oic.if.a", "oic.if.baseline"]
+                }
+              ],
+          "schema": { "$ref": "#/definitions/AirFlowControlLinks" }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "interface-baseline" : {
+      "in" : "query",
+      "name" : "if",
+      "type" : "string",
+      "enum" : ["oic.if.baseline"]
+    },
+    "interface-b" : {
+      "in" : "query",
+      "name" : "if",
+      "type" : "string",
+      "enum" : ["oic.if.b"]
+    },
+    "interface-ll" : {
+      "in" : "query",
+      "name" : "if",
+      "type" : "string",
+      "enum" : ["oic.if.ll"]
+    }
+  },
+  "definitions": {
+    "AirFlowControlBaseline" : {
+      "properties": {
+        "rt": {
+          "description": "Resource Type of this resource",
+          "type": "array",
+          "items": [
+            {
+              "allOf": {
+                "enum": [
+                  "oic.r.airFLowControl",
+                  "oic.wk.col"
+                ]
+              }
+            }
+          ]
+        },
+        "if": {
+          "description": "The interface set supported by this resource",
+          "type": "array",
+          "items": [
+            {
+              "allOf": {
+                "enum": [
+                  "oic.if.baseline",
+                  "oic.if.ll",
+                  "oic.if.b"
+                 ]
+               }
+            }
+          ]
+        },
+        "rts": {
+          "description": "The resource types supported by this collection",
+          "type": "array",
+          "items": [
+            {
+              "allOf": {
+                "enum": [
+                  "oic.r.airflow",
+                  "oic.switch.binary"
+                ]
+              }
+            }
+          ]
+        },
+        "links": {
+          "items": {
+            "$ref": "oic.oic-link-schema.json"
+          },
+        "maxItems": 2,
+        "minItems": 2,
+        "type": "array"
+        }
+      },
+      "required": [
+        "rt",
+        "if",
+        "links"
+      ],
+      "type": "object"
+    },
+    "AirFlowControlLinks" : {
+      "items": {
+        "$ref": "oic.oic-link-schema.json"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    },
+    "AirFlowControlBatch" : {
+      "type": "array",
+      "maxItems": 2,
+      "minItems": 2,
+      "items": {
+        "allOf": {
+          "enum": [
+            {
+              "type": "object",
+              "properties": {
+                "href": { "type": "string" },
+                "rep": {
+                  "ref": "schemas/oic.r.switch.binary.json"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "href": { "type": "string" },
+                "rep": {
+                  "ref": "schemas/oic.r.airFlow.json"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

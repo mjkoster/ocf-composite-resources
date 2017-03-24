@@ -66,7 +66,7 @@ traits:
           enum: ["oic.if.ll"]
 
 
-/ActionBaselineInterfaceURI:
+/ActionBaselineURI:
   description: |
     The oic.if.baseline interface exposes a representation of
     the links and the properties
@@ -91,6 +91,7 @@ traits:
                 "rts": ["oic.r.actuation"],
                 "action.type": ["moveto", "level"],
                 "action.method": "oic.method.create",
+                "action.if": "oic.if.a",
                 "action.rts": ["oic.r.brightness", "oic.r.ramptime"],
                 "links": [
                   {
@@ -107,7 +108,7 @@ traits:
               }
 
 
-/ActionReadInterfaceURI:
+/ActionDescriptionURI:
     description: |
       The oic.if.r interface exposes a representation of static properties
 
@@ -129,12 +130,13 @@ traits:
                   {
                     "action.type": ["moveto", "level"],
                     "action.method": "oic.method.create",
+                    "action.if": "oic.if.a",
                     "action.rts": ["oic.r.brightness", "oic.r.ramptime"]
                    }
                 ]
 
 
-/ActionCreateInterfaceURI:
+/ActionInvokeCreateURI:
     description: |
       The oic.if.a interface allows invoking an action using the create pattern
       THe payload is used to create a new actuation resource in the collection
@@ -162,7 +164,7 @@ traits:
                 ]
 
 
-/ActionListInterfaceURI:
+/ActionListBatchURI:
     description: |
       The oic.if.b interface exposes the list of actuations in batch format
 
@@ -211,7 +213,7 @@ traits:
                 ]
 
 
-/ActionLinksInterfaceURI:
+/ActionLinksURI:
     description: |
       The oic.if.ll interface exposes a representation of the links
 

@@ -10,7 +10,7 @@ documentation:
 
   - title: OCF Actuation
     content: |
-      Represents the life cycle properties of an invoked Action 
+      Represents the life cycle properties of an invoked Action
 
   - title: Introduction
     content: |
@@ -28,7 +28,7 @@ documentation:
 
 schemas:
   - schema-baseline: !include schemas/oic.r.actuation.schema-baseline.json
-  - schema-r: !include schemas/oic.rw.actuation.schema-r.json
+  - schema-r: !include schemas/oic.r.actuation.schema-r.json
 
 traits:
   - interface-baseline:
@@ -46,7 +46,7 @@ traits:
         if:
           enum: ["oic.if.r", "oic.if.baseline"]
 
-/ActuationBaselineInterfaceURI:
+/ActuationBaselineURI:
   description: |
     The oic.if.baseline interface exposes a representation of
     the base and application properties
@@ -78,20 +78,20 @@ traits:
               }
 
 
-/ActuationReadInterfaceURI:
+/ActuationStatusURI:
     description: |
-      The oic.if.r interface exposes the actuation life cycle properties
+      The oic.if.r interface exposes the Actuation life cycle status properties
 
-    displayName: Read Actuation properties
+    displayName: Read Actuation life cycle status properties
     is: [ interface-r]
 
     get:
       description: |
-        Retrieve Action life cycle properties
+        Retrieve Actuation life cycle status properties
 
       responses:
-        200:
-          description: "return the static properties describing the Action"
+        205:
+          description: "Content"
           body:
             application/json:
               schema: schema-r
