@@ -255,7 +255,47 @@
     },
     "AirFlowControlLinks" : {
       "items": {
-        "$ref": "oic.oic-link-schema.json"
+        "allOf": {
+          "$ref": "oic.oic-link-schema.json",
+          "enum": [
+            {
+              "type": "object",
+              "properties": {
+                "rt": {
+                  "enum": [
+                    "oic.r.switch.binary"
+                  ]
+                },
+                "if": {
+                  "allof": {
+                    "enum": [
+                      "oic.if.a",
+                      "oic.if.baseline"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "rt": {
+                  "enum": [
+                    "oic.r.airflow"
+                  ]
+                },
+                "if": {
+                  "allof": {
+                    "enum": [
+                      "oic.if.a",
+                      "oic.if.baseline"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
       },
       "maxItems": 2,
       "minItems": 2,
@@ -273,7 +313,7 @@
               "properties": {
                 "href": { "type": "string" },
                 "rep": {
-                  "ref": "schemas/oic.r.switch.binary.json"
+                  "ref": "oic.r.switch.binary.json"
                 }
               }
             },
@@ -282,7 +322,7 @@
               "properties": {
                 "href": { "type": "string" },
                 "rep": {
-                  "ref": "schemas/oic.r.airFlow.json"
+                  "ref": "oic.r.airFlow.json"
                 }
               }
             }
