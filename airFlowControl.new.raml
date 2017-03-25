@@ -55,16 +55,17 @@ traits:
               {
                 "rt": ["oic.r.airflowControl", "oic.wk.col"],
                 "if": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
+                "rts": ["oic.r.switch.binary", "oic.r.airflow"],
                 "links": [
                   {
                     "href": "BinarySwitchResURI",
-                    "rt":   ["oic.r.switch.binary"],
-                    "if":   ["oic.if.a", "oic.if.baseline"]
+                    "rt": ["oic.r.switch.binary"],
+                    "if": ["oic.if.a", "oic.if.baseline"]
                   },
                   {
                     "href": "AirFlowResURI",
-                    "rt":   ["oic.r.airflow"],
-                    "if":   ["oic.if.a", "oic.if.baseline"]
+                    "rt": ["oic.r.airflow"],
+                    "if": ["oic.if.a", "oic.if.baseline"]
                   }
                 ]
               }

@@ -47,54 +47,64 @@
           "maxItems": 2,
           "minItems": 2,
           "type": "array",
-          "items": {
-            "allOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "rt": {
-                    "type": "array",
-                    "items": {
-                      "allOf": [
-                        { "enum": ["oic.r.switch.binary"] }
+          "items": [
+            {
+              "allOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "rt": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "allOf": [
+                            { "enum": ["oic.r.switch.binary"] }
+                          ]
+                        }
+                      ]
+                    },
+                    "if": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "allOf": [
+                            { "enum": ["oic.if.a"] },
+                            { "enum": ["oic.if.baseline"] }
+                          ]
+                        }
                       ]
                     }
-                  },
-                  "if": {
-                    "type": "array",
-                    "items": {
-                      "allOf": [
-                        { "enum": ["oic.if.a"] },
-                        { "enum": ["oic.if.baseline"] }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "rt": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "allOf": [
+                            { "enum": ["oic.r.airflow"] }
+                          ]
+                        }
+                      ]
+                    },
+                    "if": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "allOf": [
+                            { "enum": ["oic.if.a"] },
+                            { "enum": ["oic.if.baseline"] }
+                          ]
+                        }
                       ]
                     }
                   }
                 }
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "rt": {
-                    "type": "array",
-                    "items": {
-                      "allOf": [
-                        { "enum": ["oic.r.airflow"] }
-                      ]
-                    }
-                  },
-                  "if": {
-                    "type": "array",
-                    "items": {
-                      "allOf": [
-                        { "enum": ["oic.if.a"] },
-                        { "enum": ["oic.if.baseline"] }
-                      ]
-                    }
-                  }
-                }
-              }
-            ]
-          }
+              ]
+            }
+          ]
         }
       },
       "required": [
