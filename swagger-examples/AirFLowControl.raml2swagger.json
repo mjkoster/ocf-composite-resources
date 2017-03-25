@@ -199,12 +199,10 @@
           "type": "array",
           "items": [
             {
-              "allOf": {
-                "enum": [
-                  "oic.r.airFLowControl",
-                  "oic.wk.col"
-                ]
-              }
+              "allOf": [
+                { "enum": ["oic.r.airFLowControl"] },
+                { "enum": ["oic.wk.col"] }
+              ]
             }
           ]
         },
@@ -213,13 +211,11 @@
           "type": "array",
           "items": [
             {
-              "allOf": {
-                "enum": [
-                  "oic.if.baseline",
-                  "oic.if.ll",
-                  "oic.if.b"
-                 ]
-               }
+              "allOf": [
+                { "enum": ["oic.if.baseline"] },
+                { "enum": ["oic.if.b"] },
+                { "enum": ["oic.if.ll"] }
+              ]
             }
           ]
         },
@@ -228,78 +224,62 @@
           "type": "array",
           "items": [
             {
-              "allOf": {
-                "enum": [
-                  "oic.r.airflow",
-                  "oic.switch.binary"
-                ]
-              }
+              "allOf": [
+                { "enum": ["oic.r.airflow"] },
+                { "enum": ["oic.switch.binary"] }
+              ]
             }
           ]
         },
         "links": {
+          "type": "array",
           "items": {
-            "$ref": "oic.oic-link-schema.json"
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "rt": {
+                    "enum": [
+                      "oic.r.switch.binary"
+                    ]
+                  },
+                  "if": {
+                    "allof": [
+                      "oic.if.a",
+                      "oic.if.baseline"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "rt": {
+                    "enum": [
+                      "oic.r.airflow"
+                    ]
+                  },
+                  "if": {
+                    "allof": [
+                      "oic.if.a",
+                      "oic.if.baseline"
+                    ]
+                  }
+                }
+              }
+            ]
           },
-        "maxItems": 2,
-        "minItems": 2,
-        "type": "array"
+          "maxItems": 2,
+          "minItems": 2
         }
       },
       "required": [
         "rt",
         "if",
+        "rts",
         "links"
       ],
       "type": "object"
-    },
-    "AirFlowControlLinks" : {
-      "items": {
-        "allOf": {
-          "$ref": "oic.oic-link-schema.json",
-          "enum": [
-            {
-              "type": "object",
-              "properties": {
-                "rt": {
-                  "enum": [
-                    "oic.r.switch.binary"
-                  ]
-                },
-                "if": {
-                  "allof": {
-                    "enum": [
-                      "oic.if.a",
-                      "oic.if.baseline"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "type": "object",
-              "properties": {
-                "rt": {
-                  "enum": [
-                    "oic.r.airflow"
-                  ]
-                },
-                "if": {
-                  "allof": {
-                    "enum": [
-                      "oic.if.a",
-                      "oic.if.baseline"
-                    ]
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "maxItems": 2,
-      "minItems": 2,
-      "type": "array"
     },
     "AirFlowControlBatch" : {
       "type": "array",
@@ -329,6 +309,48 @@
           ]
         }
       }
-    }
+    },
+    "AirFlowControlLinks" : {
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array",
+      "items": {
+        "allOf": [
+          { "$ref": "oic.oic-link-schema.json"},
+          {
+            "type": "object",
+            "properties": {
+              "rt": {
+                "enum": [
+                    "oic.r.switch.binary"
+                ]
+              },
+                "if": {
+                  "allof": [
+                      "oic.if.a",
+                      "oic.if.baseline"
+                  ]
+                }
+              }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "rt": {
+                "enum": [
+                  "oic.r.airflow"
+                ]
+              },
+              "if": {
+                "allof": [
+                  "oic.if.a",
+                  "oic.if.baseline"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }    
   }
 }

@@ -1,1 +1,112 @@
-can not resolve schemas/oic.r.airflowControl.new-baseline.json
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://openinterconnect.org/iotdatamodels/schemas/oic.r.airflowControl.new-baseline.json#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Air Flow",
+  "definitions": {
+    "AirFlowControlBaseline" : {
+      "properties": {
+        "rt": {
+          "description": "Resource Type of this resource",
+          "type": "array",
+          "items": [
+            {
+              "allOf": [
+                { "enum": ["oic.r.airFLowControl"] },
+                { "enum": ["oic.wk.col"] }
+              ]
+            }
+          ]
+        },
+        "if": {
+          "description": "The interface set supported by this resource",
+          "type": "array",
+          "items": [
+            {
+              "allOf": [
+                { "enum": ["oic.if.baseline"] },
+                { "enum": ["oic.if.b"] },
+                { "enum": ["oic.if.ll"] }
+              ]
+            }
+          ]
+        },
+        "rts": {
+          "description": "The resource types supported by this collection",
+          "type": "array",
+          "items": [
+            {
+              "allOf": [
+                { "enum": ["oic.r.airflow"] },
+                { "enum": ["oic.switch.binary"] }
+              ]
+            }
+          ]
+        },
+        "links": {
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "rt": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        { "enum": ["oic.r.switch.binary"] }
+                      ]
+                    }
+                  },
+                  "if": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        { "enum": ["oic.if.a"] },
+                        { "enum": ["oic.if.baseline"] }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "rt": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        { "enum": ["oic.r.airflow"] }
+                      ]
+                    }
+                  },
+                  "if": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        { "enum": ["oic.if.a"] },
+                        { "enum": ["oic.if.baseline"] }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "rt",
+        "if",
+        "rts",
+        "links"
+      ],
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {"$ref": "#/definitions/AirFlowControlBaseline"}
+  ]
+}

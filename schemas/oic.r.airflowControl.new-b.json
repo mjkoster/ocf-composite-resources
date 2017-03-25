@@ -1,1 +1,38 @@
-can not resolve schemas/oic.r.airflowControl.new-b.json
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://openinterconnect.org/iotdatamodels/schemas/oic.r.airflowControl.new-b.json#",
+  "description" : "Copyright (c) 2016 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Air Flow",
+  "definitions": {
+    "AirFlowControlBatch" : {
+      "type": "array",
+      "maxItems": 2,
+      "minItems": 2,
+      "items": {
+        "allOf": [
+            {
+              "type": "object",
+              "properties": {
+                "href": { "type": "string" },
+                "rep": {
+                  "ref": "oic.r.switch.binary.json"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "href": { "type": "string" },
+                "rep": {
+                  "ref": "oic.r.airFlow.json"
+                }
+              }
+            }
+          ]
+      }
+    }
+  },
+  "allOf": [
+    {"$ref": "#/definitions/AirFLowControlBatch"}
+  ]
+}
