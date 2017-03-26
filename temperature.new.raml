@@ -32,7 +32,7 @@ traits:
         if:
           enum: ["oic.if.baseline"]
 
-/TemperatureResBaselineURI:
+/TemperatureResURI?if=oic.if.baseline:
   description: |
     This resource describes a sensed or actuated Temperature value.
     The temperature describes the current value measured.
@@ -131,7 +131,7 @@ traits:
                 "range":        [0.0,100.0]
               }
 
-/TemperatureResSensorURI:
+/TemperatureResURI?if=oic.if.s:
   description: |
     This resource displays a sensed Temperature value.
 
@@ -171,7 +171,7 @@ traits:
                 "units":        "C"
               }
 
-/TemperatureResActuatorURI:
+/TemperatureResURI?if=oic.if.a:
   description: |
     This resource describes an actuated Temperature value.
     The temperature property displays and accepts the current value.
@@ -249,7 +249,7 @@ traits:
                 "units":        "C"
               }
 
-/TemperatureResReadableURI:
+/TemperatureResURI?if=oic.if.r:
   description: |
     This resource describes a sensed or actuated Temperature value.
     The temperature describes the current value measured.
@@ -261,7 +261,7 @@ traits:
     If no range is provided the default is +/- MAXINT.
 
   displayName: Temperature
-  is: [ interface-baseline ] # readable interface exposes configuration properties
+  is: [ interface-r ] # readable interface exposes configuration properties
 
   get:
     description: |
