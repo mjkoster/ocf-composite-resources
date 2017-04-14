@@ -1,0 +1,64 @@
+#%RAML 0.8
+# RAML for OCF link binding
+# dynamic association of state changes in one resource with
+# state updates to another resource
+#
+
+title: OCF Link Binding
+version: 0.1
+documentation:
+
+  - title: OCF llink binding
+    content: |
+      Link Binding
+
+schemas:
+  - schema-baseline: !include schemas/linkbinding.schema-baseline.json
+  - schema-r: !include schemas/linkbinding.schema-r.json
+  - schema-rw: !include schemas/linkbinding.schema-rw.json
+
+traits:
+  - interface-baseline:
+      queryParameters:
+        if:
+          enum: ["oic.if.baseline"]
+
+  - interface-r:
+      queryParameters:
+        if:
+          enum: ["oic.if.r"]
+
+  - interface-rw:
+      queryParameters:
+        if:
+          enum: ["oic.if.rw"]
+
+
+
+/LinkBindingURI?if=oic.if.r:
+  description: |
+    The oic.if.r interfaces exposes a representation of
+    the readable properties
+
+
+  displayName: Link Binding Readable Properties
+  is: [ interface-r]
+
+  get:
+    description: |
+      Retrieve on Readable Interface
+
+    responses:
+      200:
+        body:
+          application/json:
+            schema: schema-r
+            example: |
+              {
+                "href": "ocf:7c641530-d362-462b-a347-601032b6698d/light/switch",
+                "anchor": "/switch",
+                "accept.if": "oic.if.s",
+                "rel": "monitor",
+                "transfer.method": "coap.post",
+                "transfer.if": "oic.if.a",
+              }

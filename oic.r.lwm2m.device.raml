@@ -1,0 +1,121 @@
+#%RAML 0.8
+# RAML for OCF mapping of the lwm2m device object.
+# Resource type representing a lwm2m device object
+#
+
+title: lwm2m device object
+version: 0.1
+documentation:
+
+  - title: OCF lwm2m device object
+    content: |
+      OCF mapping of an lwm2m device object
+
+  - title: Introduction
+    content: |
+      This resource type exposes properties that inform the client how to invoke
+      an action on the resource that uses oic.r.action
+
+  - title: Resource Design
+    content: |
+      one to one mapping of the lwm2m device management attributes to OCF resource properties
+
+
+schemas:
+  - schema-baseline: !include schemas/oic.r.lwm2m.device.schema-baseline.json
+  - schema-r: !include schemas/oic.r.lwm2m.device.schema-r.json
+  - schema-rw: !include schemas/oic.rw.lwm2m.device.schema-rw.json
+  - schema-a: !include schemas/oic.rw.lwm2m.device.schema-a.json
+
+traits:
+  - interface-baseline:
+      queryParameters:
+        if:
+          enum: ["oic.if.baseline"]
+
+  - interface-r:
+      queryParameters:
+        if:
+          enum: ["oic.if.r"]
+
+  - interface-rw:
+      queryParameters:
+        if:
+          enum: ["oic.if.rw"]
+
+  - interface-a:
+      queryParameters:
+        if:
+          enum: ["oic.if.a"]
+
+
+/lwm2mDeviceBaselineURI:
+  description: |
+    The oic.if.baseline interface exposes a representation of
+    the links and the properties
+
+
+  displayName: Action Baseline
+  is: [ interface-baseline ]
+
+  get:
+    description: |
+      Retrieve on Baseline Interface
+
+    responses:
+      200:
+        body:
+          application/json:
+            schema: schema-baseline
+            example: |
+              {
+                "rt": ["oic.r.lwm2m.device"],
+                "if": ["oic.if.baseline", "oic.if.a", "oic.if.r", "oic.if.rw"],
+              }
+
+
+/lwm2mDeviceReadableURI:
+    description: |
+      The oic.if.r interface exposes a representation of readable properties
+
+    displayName: Readable properties
+    is: [ interface-r ]
+
+    get:
+      description: |
+        Retrieve readable properties
+
+      responses:
+        200:
+          description: "return the readable properties of the device resource"
+          body:
+            application/json:
+              schema: schema-r
+              example: |
+                [
+                  {
+                    "manufacturer": "Acme Inc.",
+                    "model": "Acme Levitation Suit",
+                    "serial.number": "0000001",
+                    "firmware.version": "0.0.1",
+                    "reboot": false,
+                    "factory.reset": false,
+                    "available.power.sources": ["dc.power", "internal.battery"],
+                    "power.source.voltage": [553.1, 535.2],
+                    "power.source.current": [17.2, 10.12],
+                    "battery.level": 60,
+                    "memory.free": 105567,
+                    "error.code": ["no.error"],
+                    "reset.error.code": false,
+                    "current.time": 1492128887,
+                    "utc.offset": -7,
+                    "time.zone": "America/San_Francisco",
+                    "supported.binding.and.modes": ["U"],
+                    "device.type": "prototype",
+                    "hardware.version": "0.0.1",
+                    "software.version": "0.0.1",
+                    "battery.status": "charging",
+                    "memory.total": 10030445,
+                    "ext.dev.info": "http://example.org/mud/acme-levitation-suit.html"
+                   }
+                ]
