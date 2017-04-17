@@ -7,13 +7,13 @@ title: lwm2m device object
 version: 0.1
 documentation:
 
-  - title: OCF lwm2m device object
+  - title: lwm2m native device object
     content: |
-      OCF mapping of an lwm2m device object
+      native mapping of an lwm2m device object
 
   - title: Introduction
     content: |
-      LWM2M device object mapped to OCF style definitions
+      raw definition for LWM2M management object ID number 3, the device object
 
   - title: Resource Design
     content: |
@@ -68,7 +68,7 @@ traits:
             schema: schema-baseline
             example: |
               {
-                "rt": ["oic.r.lwm2m.device"],
+                "rt": ["x-lwm2m.r.device"],
                 "if": ["oic.if.baseline", "oic.if.a", "oic.if.r", "oic.if.rw"],
               }
 
@@ -93,28 +93,28 @@ traits:
               example: |
                 [
                   {
-                    "manufacturer": "Acme Inc.",
-                    "model": "Acme Levitation Suit",
-                    "serial.number": "0000001",
-                    "firmware.version": "0.0.1",
-                    "reboot": false,
-                    "factory.reset": false,
-                    "available.power.sources": ["dc.power", "internal.battery"],
-                    "power.source.voltage": [553.1, 535.2],
-                    "power.source.current": [17.2, 10.12],
-                    "battery.level": 60,
-                    "memory.free": 105567,
-                    "error.code": ["no.error"],
-                    "reset.error.code": false,
-                    "current.time": 1492128887,
-                    "utc.offset": -7,
-                    "time.zone": "America/San_Francisco",
-                    "supported.binding.and.modes": ["U", "UQ"],
-                    "device.type": "prototype",
-                    "hardware.version": "0.0.1",
-                    "software.version": "0.0.1",
-                    "battery.status": "charging",
-                    "memory.total": 10030445,
-                    "ext.dev.info": "http://example.org/mud/acme-levitation-suit.html"
+                    "0": "Acme Inc.",
+                    "1": "Acme Levitation Suit",
+                    "2": "0000001",
+                    "3": "0.0.1",
+                    "4": false,
+                    "5": false,
+                    "6": [6, 1],
+                    "7": [553.1, 535.2],
+                    "8": [17.2, 10.12],
+                    "9": 60,
+                    "10": 105567,
+                    "11": [0],
+                    "12": false,
+                    "13": 1492128887,
+                    "14": -7,
+                    "15": "America/San_Francisco",
+                    "16": ["U", "UQ"],
+                    "17": "prototype",
+                    "18": "0.0.1",
+                    "19": "0.0.1",
+                    "20": 1,
+                    "21": 10030445,
+                    "22": "http://example.org/mud/acme-levitation-suit.html"
                    }
                 ]
