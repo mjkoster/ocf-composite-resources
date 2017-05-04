@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2017 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Body Temperature (observed)",
+  "definitions": {
+    "oic.r.body.temperature-obs": {
+      "type": "object",
+      "properties": {
+        "allOf": [
+          {
+            "rt": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "uniqueItems": true,
+              "items": {
+                "enum": ["oic.r.body.temperature-obs", "oic.wk.col"]
+              }
+            },
+            "rts": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": {
+                "oneOf": [
+                  {
+                    "enum": ["oic.r.temperature"]
+                  },
+                  {
+                    "enum": ["oic.r.temperature", "oic.r.body.location"]
+                  },
+                  {
+                    "enum": ["oic.r.temperature", "oic.r.clock"]
+                  },
+                  {
+                    "enum": ["oic.r.temperature", "oic.r.body.location", "oic.r.clock"]
+                  }
+                ]
+              },
+              "description": "The link shall contain Temperature (oic.r.temperature) Resource to define temperature level; may contain Body Location (oic.r.body.location) Resource to define measurement site; may contain Clock (oic.r.clock) Resource to define timestamp."
+            }
+          }
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {"$ref": "oic.core.json#/definitions/oic.core"},
+    {"$ref": "oic.collection-schema.json#/definitions/oic.collection"},
+    {"$ref": "#/definitions/oic.r.body.temperature-obs"}
+  ]
+}

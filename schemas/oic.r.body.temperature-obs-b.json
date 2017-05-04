@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2017 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Body Temperature (observed)",
+  "definitions": {
+  },
+  "type": "array",
+  "items": [
+  ]
+}

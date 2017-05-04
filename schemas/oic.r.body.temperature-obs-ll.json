@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description" : "Copyright (c) 2017 Open Connectivity Foundation, Inc. All rights reserved.",
+  "title": "Body Temperature (observed) Link List Schema",
+  "definitions": {
+    "body.temperature-obs-ll": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {"$ref": "oic.collection.linkslist-schema.json#/definitons/oic.collection.linksobject"},
+    {"$ref": "#/definitions/body.temperature-obs-ll"}
+]
+}
