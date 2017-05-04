@@ -13,7 +13,7 @@
     }
   },
   "allOf": [
-    {"$ref": "oic.collection.linkslist-schema.json#/definitons/oic.collection.linksobject"},
+    {"$ref": "oic.collection.linkslist-schema.json#"},
     {"$ref": "#/definitions/body.temperature-obs-ll"}
-]
+  ]
 }

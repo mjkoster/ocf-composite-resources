@@ -4,14 +4,6 @@
   "definitions": {
     "oic.collection.alllinks": {
 		  "$ref": "oic.collection-schema.json#/definitions/oic.collection.alllinks"
-    },
-    "oic.collection.linksobject": {
-      "type": "object",
-      "properties": {
-        "links":  {
-          "$ref": "#/definitions/oic.collection.alllinks"
-        }
-      }
     }
   },
   "type": "object",
