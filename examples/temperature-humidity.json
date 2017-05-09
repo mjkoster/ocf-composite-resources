@@ -2,6 +2,8 @@ Example 1, basic resource interfaces
 oic.r.temperature
 oic.if.baseline
 
+GET /example/temp?if=oic.if.baseline
+
 {
   "rt": ["oic.r.temperature'"],
   "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
@@ -9,11 +11,15 @@ oic.if.baseline
 
 oic.if.s
 
+GET /example/temp?if=oic.if.s
+
 {
   "temperature": 77
 }
 
 oic.if.r
+
+GET /example/temp?if=oic.if.r
 
 {
   "units": "C",
@@ -24,6 +30,8 @@ oic.if.r
 oic.r.humidity
 oic.if.baseline
 
+GET /example/humid?if=oic.if.baseline
+
 {
   "rt": ["oic.r.humidity'"],
   "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
@@ -31,11 +39,15 @@ oic.if.baseline
 
 oic.if.s
 
+GET /example/humid?if=oic.if.s
+
 {
   "humidity": 49
 }
 
 oic.if.r
+
+GET /example/humid?if=oic.if.r
 
 {
   "units": "%",
@@ -47,11 +59,11 @@ oic.r.conditionalnotification
 oic.if.baseline
 
 {
-  "if": ["oic.if.r"],
+  "if": ["oic.if.rw"],
   "rt": ["oic.if.conditionalnotification"]
 }
 
-oic.if.r
+oic.if.rw
 
 {
   "minnotificationperiod": 1,
@@ -65,6 +77,8 @@ oic.r.temperature and oic.r.conditionalnotification as multi-RT
 
 oic.if.baseline
 
+GET /example/temp?if=oic.if.baseline
+
 {
   "rt": ["oic.r.temperature", "oic.r.conditionalnotification"],
   "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
@@ -72,11 +86,15 @@ oic.if.baseline
 
 oic.if.s
 
+GET /example/temp?if=oic.if.s
+
 {
   "temperature": 77
 }
 
-oic.if.r
+oic.if.r and oic.if.rw
+
+GET /example/temp?if=oic.if.r&if=oic.if.rw
 
 {
   "units": "C",
@@ -90,6 +108,8 @@ oic.r.temperature and oic.r.humidity as multi-RT
 
 oic.if.baseline
 
+GET /example/temphumid?if=oic.if.baseline
+
 {
   "rt": ["oic.r.temperature", "oic.r.humidity"],
   "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
@@ -97,12 +117,16 @@ oic.if.baseline
 
 oic.if.s
 
+GET /example/temphumid?if=oic.if.s
+
 {
   "temperature": 77,
   "humidity": 49
 }
 
 oic.if.r
+
+GET /example/temphumid?if=oic.if.r
 
 {
   "units": CONFLICT,
@@ -113,7 +137,50 @@ Example 3, collection
 
 oic.r.temperature and oic.r.humidity as collection
 
+oic.if.baseline
+
+GET /example/?if=oic.if.baseline
+
+{
+  "rt": "oic.wk.col",
+  "if": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
+  "rts": ["oic.r.temperature", "oic.r.humidity"],
+  "links": [
+    {
+      "href": "temp",
+      "rt": ["oic.r.temperature"],
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
+    },
+    {
+      "href": "humid",
+      "rt": ["oic.r.humidity"],
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
+    }
+  ]
+}
+
+oic.if.ll
+
+GET /example/?if=oic.if.ll
+
+[
+  {
+    "href": "temp",
+    "rt": ["oic.r.temperature"],
+    "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
+  },
+  {
+    "href": "humid",
+    "rt": ["oic.r.humidity"],
+    "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
+  }
+]
+
+
+
 oic.if.b with oic.if.s endpoint
+
+GET /example/?if=oic.if.b&if=oic.if.s
 
 [
   {
@@ -131,6 +198,8 @@ oic.if.b with oic.if.s endpoint
 ]
 
 oic.if.b with oic.if.r endpoints
+
+GET /example/?if=oic.if.b&if=oic.if.r
 
 [
   {
@@ -154,51 +223,76 @@ oic.r.temperature, oic.r.humidity, and oic.r.conditionalnotification,
 composed as a collection with multi-RT endpoints
 oic.if.baseline
 
+GET /example/?if=oic.if.baseline
+
 {
   "rt": "oic.wk.col",
-  "if": ["oic.if.baseline", "oic.if.b"],
+  "if": ["oic.if.baseline", "oic.if.b", "oic.if.ll"],
   "rts": ["oic.r.temperature", "oic.r.humidity", "oic.r.conditionalnotification"],
   "links": [
     {
       "href": "temp",
       "rt": ["oic.r.temperature", "oic.r.conditionalnotification"],
-      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
     },
     {
       "href": "humid",
       "rt": ["oic.r.humidity", "oic.r.conditionalnotification"],
-      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
     }
   ]
 }
 
 oic.if.b with oic.if.baseline endpoints
 
+GET /example/?if=oic.if.b&if=oic.if.baseline
+
 [
   {
     "href": "temp",
     "rep": {
       "rt": ["oic.r.temperature", "oic.r.conditionalnotification"],
-      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
     }
   },
   {
     "href": "humid",
     "rep": {
       "rt": ["oic.r.humidity", "oic.r.conditionalnotification"],
-      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s"]
+      "if": ["oic.if.baseline", "oic.if.r", "oic.if.s", "oic.r.rw"]
     }
   }
 ]
 
 oic.if.b with oic.if.r endpoints
 
+GET /example/?if=oic.if.b&if=oic.if.r
+
 [
   {
     "href": "temp",
     "rep": {
       "units": "C",
-      "range": [-40, 80],
+      "range": [-40, 80]
+  }
+  },
+  {
+    "href": "humid",
+    "rep": {
+      "units": "%",
+      "range": [0, 100]
+    }
+  }
+]
+
+oic.if.b with oic.if.rw endpoints
+
+GET /example/?if=oic.if.b&if=oic.if.rw
+
+[
+  {
+    "href": "temp",
+    "rep": {
       "minnotificationperiod": 1,
       "maxnotificationperiod": 100,
       "threshold": 1
@@ -207,8 +301,6 @@ oic.if.b with oic.if.r endpoints
   {
     "href": "humid",
     "rep": {
-      "units": "%",
-      "range": [0, 100],
       "minnotificationperiod": 1,
       "maxnotificationperiod": 100,
       "threshold": 1
