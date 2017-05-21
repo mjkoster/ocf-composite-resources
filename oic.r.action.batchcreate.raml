@@ -142,7 +142,7 @@ traits:
                 ]
 
 
-/ActionInvokeCreateURI:
+/ActionBatchCreateURI:
     description: |
       The oic.if.bc interface allows invoking an action using batch create
       THe payload is used to create a new actuation resource in the collection
@@ -159,24 +159,62 @@ traits:
           example: |
             [
               {
-                "href": "",
+                "href": "0000001c",
                 "rt": ["oic.r.actuation"],
-                "if": ["oic.if.rw", "oic.if.r"],
-                "ins": "F37DF2AC",
-                "rep": [
-                  {
-                    "href": "brightness",
-                    "rep": {
-                      "brightness": 50
-                    },
-                    "href": "ramptime",
-                    "rep": {
-                      "ramptime": 10
+                "if": ["oic.if.rw", "oic.if.r", "oic.if.baseline"],
+                "ins": "0000001c",
+                "rep": {
+                    "rt": ["oic.r.actuation"],
+                    "if": ["oic.if.rw", "oic.if.r", "oic.if.baseline"]
+                    "actuation.progress": 0,
+                    "actuation.status": "pending",
+                    "actuation.payload: {
+                      "brightness": 217,
+                      "ramptime": 30
                     }
                   }
-                ]
-              }
-            ]
+                }
+              ]
+
+      responses:
+        201:
+          description: Created
+          headers: {"Location": {"type": "string"}}
+          body:
+            application/json:
+              schema: schema-bc
+              example: |
+                  [
+                    {
+                      "href": "0000001c",
+                      "rt": ["oic.r.actuation"],
+                      "if": ["oic.if.rw", "oic.if.r", "oic.if.baseline"],
+                      "ins": "0000001c",
+                      "rep": {
+                          "rt": ["oic.r.actuation"],
+                          "if": ["oic.if.rw", "oic.if.r", "oic.if.baseline"]
+                          "actuation.progress": 0,
+                          "actuation.status": "pending",
+                          "actuation.payload: {
+                            "brightness": 217,
+                            "ramptime": 30
+                          }
+                        }
+                      }
+                    ]
+
+
+/ActionSimpleCreateURI:
+    description: |
+      The oic.if.a interface allows invoking an action using the create pattern
+      THe payload is used to create a new actuation resource in the collection
+
+    displayName: Invoke Action using Create
+    is: [ interface-a ]
+
+    post:
+      description: |
+        Invoke the action by creating an actuation
 
       responses:
         201:
