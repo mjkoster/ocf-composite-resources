@@ -1,0 +1,86 @@
+//common properties interface examples
+
+// GET /oic/example?if=oic.if.ll
+
+[
+  {
+    "href": "thermometer/",
+    "rt": ["oic.wk.col"],
+    "if": ["oic.if.ll", "oic.if.b"]
+  }
+]
+
+
+// GET /example/thermometer/?if=oic.if.ll
+
+[
+  {
+    "href": "temperature",
+    "rt": ["oic.r.temperature"],
+    "if": ["oic.if.r", "oic.if.cp"]
+  },
+  {
+    "href": "location",
+    "rt": ["oic.r.bodysite"],
+    "if": ["oic.if.r", "oic.if.cp"]
+  }
+]
+
+
+// GET /example/thermometer/?if=oic.if.b
+
+[
+  {
+    "href": "temperature",
+    "rep": {
+      "temperature": 99.4,
+    }
+  },
+  {
+    "href": "location",
+    "rep": {
+      "bodysite": "Ear",
+    }
+  }
+]
+
+
+// GET /example/thermometer/location?if=oic.if.r
+
+{
+  "bodysite": "Ear",
+  "allowablebodysites": ["Ear", "Forehead"]
+}
+
+
+// GET /example/thermometer/temperature?if=oic.if.r
+
+{
+  "units": "F",
+  "range": [88, 110]
+}
+
+
+// GET /example/thermometer/temperature?if=oic.if.s
+
+4.xx
+
+
+// GET /example/thermometer/temperature?if=oic.if.cp
+
+{
+  "if": ["oic,if.r", "oic.if.cp"],
+  "rt": ["oic.if.temperature"],
+  "id": "temperature"
+}
+
+
+// GET /example/thermometer/temperature?if=oic.if.cp&if-oic.if.r
+
+{
+  "if": ["oic,if.r", "oic.if.cp"],
+  "rt": ["oic.if.temperature"],
+  "id": "temperature",
+  "units": "F",
+  "range": [88, 110]
+}
