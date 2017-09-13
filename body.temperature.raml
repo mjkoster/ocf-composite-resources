@@ -48,13 +48,13 @@ traits:
             schema: BodyTemperature
             example: |
               {
-                "rt":   ["oic.r.body.temperature-obs", "oic.wk.col"],
+                "rt":   ["oic.r.body.temperature-obs", "oic.wk.col", "oic.r.atomic"],
                 "if":   ["oic.if.baseline","oic.if.ll", "oic.if.b"],
                 "id":   "unique_example_id",
                 "links": [
-                  { "href": "/myTemperatureResURI", "rt": ["oic.r.temperature"], "if": [] },
-                  { "href": "/myBodyLocationResURI", "rt": ["oic.r.body.location"], "if": [] },
-                  { "href": "/myClockResURI", "rt": ["oic.r.clock"], "if": [] }
+                  { "href": "/myTemperatureResURI", "rt": ["oic.r.temperature"], "if": ["oic.if.s", "oic.if.r", "oic.if.baseline"] },
+                  { "href": "/myBodyLocationResURI", "rt": ["oic.r.body.location"], "if": ["oic.if.s", "oic.if.r", "oic.if.baseline"] },
+                  { "href": "/myClockResURI", "rt": ["oic.r.clock"], "if": ["oic.if.s", "oic.if.r", "oic.if.baseline"] }
                 ]
               }
 
@@ -77,9 +77,9 @@ traits:
             example: |
               {
                 "links": [
-                  {"href": "/myTemperatureResURI", "rt": ["oic.r.temperature"], "if": []},
-                  {"href": "/myBodyLocationResURI", "rt": ["oic.r.body.location"], "if": []},
-                  {"href": "/myClockResURI", "rt": ["oic.r.clock"], "if": []}
+                  {"href": "/myTemperatureResURI", "rt": ["oic.r.temperature"], "if": ["oic.if.s", "oic.if.r", "oic.if.baseline"]},
+                  {"href": "/myBodyLocationResURI", "rt": ["oic.r.body.location"], "if": ["oic.if.s", "oic.if.r", "oic.if.baseline"]},
+                  {"href": "/myClockResURI", "rt": ["oic.r.clock"], "if": ["oic.if.s", "oic.if.r", "oic.if.baseline"]}
                 ]
               }
 
